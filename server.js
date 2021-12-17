@@ -31,6 +31,13 @@ app.get('/json', (req,res) => {
 	res.json({"message":"Hello json"});
 });
 
+const mySecret = process.env['MESSAGE_STYLE']
+if(mySecret == 'uppercase'){
+  res.json({"message":"HELLO JSON"});
+} else {
+  res.json({"message":"Hello json"});
+}
+});
 
 var port = process.env.PORT || 3000;
 bGround.setupBackgroundApp(app, myApp, __dirname).listen(port, function(){
