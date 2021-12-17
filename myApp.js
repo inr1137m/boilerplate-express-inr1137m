@@ -1,7 +1,15 @@
 var express = require('express');
 var app = express();
 
+app.use('/public', express.static(`${__dirname}/public`));
+
+app.use('/json', (req,res,next) => {
+	console.log(req.method+" "+req.path+" - "+req.ip);
+	next();
+});
+
 console.log('Hello World');
+
 app.get('/', (req,res) => {
 	res.sendFile(`${__dirname}/views/index.html`);
 });
@@ -22,6 +30,9 @@ if(mySecret == 'uppercase'){
 }
 });
 
+app.get('/:word/echo', (req,res) => {
+	res.json({echo:req.params.word});
+});
 
 
 
