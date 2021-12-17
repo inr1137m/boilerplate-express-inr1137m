@@ -23,12 +23,17 @@ if (!process.env.DISABLE_XORIGIN) {
 
 app.use('/public', express.static(`${__dirname}/public`));
 
+app.use('/json', (req,res,next) => {
+	console.log(req.method+" "+req.path+" - "+req.ip);
+	next();
+});
+
 app.get('/', (req,res) => {
 	res.sendFile(`${__dirname}/views/index.html`);
 });
 
 app.get('/json', (req,res) => {
-const mySecret = process.env['MESSAGE_STYLE']
+const mySecret = process.env['MESSAGE_STYLE'];
 if(mySecret == 'uppercase'){
   res.json({"message":"HELLO JSON"});
 } else {
